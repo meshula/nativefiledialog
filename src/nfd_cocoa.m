@@ -10,32 +10,27 @@
 
 static NSArray *BuildAllowedFileTypes( const char *filterList )
 {
-    // Commas and semicolons are the same thing on this platform
-
     NSMutableArray *buildFilterList = [[NSMutableArray alloc] init];
-
     char typebuf[NFD_MAX_STRLEN] = {0};
-    
+    int typebufIndex = 0;
     size_t filterListLen = strlen(filterList);
-    char *p_typebuf = typebuf;
     for ( size_t i = 0; i < filterListLen+1; ++i )
     {
-        if ( filterList[i] == ',' || filterList[i] == ';' || filterList[i] == '\0' )
+        char c = filterList[i];
+        // if c is a comma, semicolon, or null, add the type to the list
+        if ( c == ',' || c == ';' || c == '\0' )
         {
-            if (filterList[i] != '\0')
-                ++p_typebuf;
-            *p_typebuf = '\0';
-
+            typebuf[typebufIndex] = '\0';
             NSString *thisType = [NSString stringWithUTF8String: typebuf];
             [buildFilterList addObject:thisType];
-            p_typebuf = typebuf;
-            *p_typebuf = '\0';
+            typebufIndex = 0;
         }
         else
         {
-            *p_typebuf = filterList[i];
-            ++p_typebuf;
-
+            if (!isspace(c))
+            {
+                typebuf[typebufIndex++] = c;
+            }
         }
     }
 
