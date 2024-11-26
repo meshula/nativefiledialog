@@ -1,5 +1,13 @@
 # Native File Dialog #
 
+_____
+
+### What's different about this fork?
+
+The existing library doesn't allow the file list to be specified as `{ "gif", "png" }` which makes the use of the library much more intuitive. So that change has been made.
+
+_____
+
 A tiny, neat C library that portably invokes native file open, folder select and save dialogs.  Write dialog code once and have it pop up native dialogs on all supported platforms.  Avoid linking large dependencies like wxWidgets and qt.
 
 Features:
