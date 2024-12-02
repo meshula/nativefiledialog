@@ -33,9 +33,10 @@ static NSArray *BuildAllowedFileTypes( const char *filterList )
         }
         else
         {
-            *p_typebuf = filterList[i];
-            ++p_typebuf;
-
+            if (filterList[i] != ' ') {
+                *p_typebuf = filterList[i];
+                ++p_typebuf;
+            }
         }
     }
 
